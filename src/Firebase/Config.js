@@ -16,6 +16,4 @@ const auth = getAuth(app)
 const db = getFirestore(app)
 const storage = getStorage(app)
 
-console.log(app)
-
 export {app, auth, db, storage};
