@@ -12,7 +12,7 @@ const useForm = (type) => {
   const [value, setValue] = useState('');
   const [error, setError] = useState('');
 
-  function validade(value) {
+  function validate(value) {
     if (type === false) return true;
     if (value.length === 0) {
       setError('Preencha um valor.');
@@ -27,7 +27,7 @@ const useForm = (type) => {
   }
 
   function onChange({ target }) {
-    if(error) validade(target.value)
+    if(error) validate(target.value)
     setValue(target.value);
   }
 
@@ -36,8 +36,8 @@ const useForm = (type) => {
     setValue,
     onChange,
     error,
-    validade: () => validade(value),
-    onBlur: () => validade(value),
+    validate: () => validate(value),
+    onBlur: () => validate(value),
   };
 };
 

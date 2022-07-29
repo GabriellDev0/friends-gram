@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 //Form Components
@@ -7,17 +7,21 @@ import Button from '../../../Components/Forms/Button';
 import useForm from '../../../Hooks/useForm';
 
 //Firebase endPoints
-import { loginFirebase } from '../../../Firebase/firebaseEndPoints';
+import {loginFirebase} from '../../../Firebase/firebaseEndPoints'
+
+//Context
+import UserContext from '../../../UserContext';
 
 const LoginForm = () => {
   const email = useForm('email');
   const password = useForm();
+  const { loading } = useContext(UserContext);
 
-  function handleLogin(event) {
+  
+ async function handleLogin(event) {
     event.preventDefault();
-
-    if (email.validade() && password.validade()) {
-        loginFirebase(email, password)
+    if (email.validate() && password.validate()) {
+      await loginFirebase(email, password)
     }
   }
 
@@ -27,7 +31,8 @@ const LoginForm = () => {
       <form onSubmit={handleLogin}>
         <Input label="Email" type="text" name="email" {...email} />
         <Input label="Senha" type="password" name="password" {...password} />
-        <Button>Entrar</Button>
+        {loading ? <Button disabled>Carregando...</Button> : <Button>Entrar</Button> }
+        
       </form>
       <Link to="/login/criar">Cadastro</Link>
     </section>

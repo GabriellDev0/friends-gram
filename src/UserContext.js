@@ -17,12 +17,9 @@ export const UserStorage = ({ children }) => {
     }
   });
 
-  if(loading){
-    return <h1>Loading...</h1>
-  }
-
+  
   return (
-    <UserContext.Provider value={currentUser}>{children}</UserContext.Provider>
+    <UserContext.Provider value={{currentUser, loading}}>{children}</UserContext.Provider>
   );
 };
 
