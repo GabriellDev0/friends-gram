@@ -1,42 +1,44 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
+//Firebase
 import { auth } from '../../../Firebase/Config';
 import { signInWithEmailAndPassword } from 'firebase/auth';
+
+//Form Components
+import Input from '../../../Components/Forms/Input';
+import Button from '../../../Components/Forms/Button';
+import useForm from '../../../Hooks/useForm';
+
 const LoginForm = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const email = useForm('email');
+  const password = useForm();
 
   function handleLogin(event) {
     event.preventDefault();
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log(user);
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode);
-        console.log(errorMessage);
-      });
+
+    if (email.validade() && password.validade()) {
+      signInWithEmailAndPassword(auth, email.value, password.value)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorCode);
+          console.log(errorMessage);
+        });
+    }
   }
 
   return (
     <section>
       <h1>Login</h1>
       <form onSubmit={handleLogin}>
-        <input
-          type="text"
-          value={email}
-          onChange={({ target }) => setEmail(target.value)}
-        />
-        <input
-          type="text"
-          value={password}
-          onChange={({ target }) => setPassword(target.value)}
-        />
-        <button>Entrar</button>
+        <Input label="Email" type="text" name="email" {...email} />
+        <Input label="Senha" type="password" name="password" {...password} />
+        <Button>Entrar</Button>
       </form>
       <Link to="/login/criar">Cadastro</Link>
     </section>
