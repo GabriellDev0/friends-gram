@@ -1,14 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-//Firebase
-import { auth } from '../../../Firebase/Config';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-
 //Form Components
 import Input from '../../../Components/Forms/Input';
 import Button from '../../../Components/Forms/Button';
 import useForm from '../../../Hooks/useForm';
+
+//Firebase endPoints
+import { loginFirebase } from '../../../Firebase/firebaseEndPoints';
 
 const LoginForm = () => {
   const email = useForm('email');
@@ -18,17 +17,7 @@ const LoginForm = () => {
     event.preventDefault();
 
     if (email.validade() && password.validade()) {
-      signInWithEmailAndPassword(auth, email.value, password.value)
-        .then((userCredential) => {
-          const user = userCredential.user;
-          console.log(user);
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log(errorCode);
-          console.log(errorMessage);
-        });
+        loginFirebase(email, password)
     }
   }
 
