@@ -10,11 +10,8 @@ import { ReactComponent as Friends } from '../../Assets/friends-icon.svg';
 //Global User Context
 import UserContext from '../../UserContext';
 
-// Firebase EndPoint
-import { logOutFirebase } from '../../Firebase/firebaseEndPoints'
-
 const Header = () => {
-  const user = useContext(UserContext);
+  const {logOutFirebase, currentUser} = useContext(UserContext);
 
   function logOut(){
     logOutFirebase()
@@ -26,9 +23,9 @@ const Header = () => {
         <Link className={styles.logo} to="/" aria-label="Friendsgram - Home">
           <Friends width="40px" height="40px" />
         </Link>
-        {user.currentUser ? (
+        {currentUser ? (
           <Link className={styles.login} to="/conta">
-            {user.displayName}
+            {currentUser.displayName}
             <button onClick={logOut}>Sair</button>
           </Link>
         ) : (
