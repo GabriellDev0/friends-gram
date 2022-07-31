@@ -12,7 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@main
+        uses: actions/checkout@v3
+        with: 
+           clean: 'false'
         
       - name: Install dependencies
         run: npm ci
@@ -31,7 +33,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@main
+        uses: actions/checkout@v3
+        with: 
+           clean: 'false'
       - name: Download artifact
         uses: actions/download-artifact@main
         with:
