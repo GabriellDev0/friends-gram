@@ -9,9 +9,11 @@ import { ReactComponent as Friends } from '../../Assets/friends-icon.svg';
 
 //Global User Context
 import UserContext from '../../UserContext';
+import useFirebase from '../../Hooks/useFirebase';
 
 const Header = () => {
-  const {logOutFirebase, currentUser} = useContext(UserContext);
+  const { currentUser } = useContext(UserContext);
+  const { logOutFirebase } = useFirebase()
 
   function logOut(){
     logOutFirebase()

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 // Styles
@@ -12,16 +12,13 @@ import useForm from '../../../Hooks/useForm';
 
 //Helper Component
 import Error from '../../../Components/Helper/Error';
-
-//Global User Context
-import UserContext from '../../../UserContext';
+import useFirebase from '../../../Hooks/useFirebase';
 
 const LoginForm = () => {
   const email = useForm('email');
   const password = useForm();
-  // const [loading, setLoading] = useState(false)
-  const { loading, loginFirebase, error } = useContext(UserContext);
-
+  const { loginFirebase, error, loading } = useFirebase()
+  
   function handleLogin(event) {
     event.preventDefault();
     if (email.validate() && password.validate()) {

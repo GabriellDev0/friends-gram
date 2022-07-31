@@ -15,7 +15,6 @@
 .forms{
   max-width: 30rem;
   padding: 1rem;
-  align-self: center;
 }
 
 @media (max-width: 640px){
