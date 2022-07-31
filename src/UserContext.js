@@ -30,13 +30,13 @@ export const UserStorage = ({ children }) => {
          console.log(errorCode);
          console.log(errorMessage);
          setError('Usuário ou senha não foram encontrados.')
+         setLoading(false)
        });
    }
 
    function logOutFirebase() {
     signOut(auth)
       .then(() => {
-        // setCurrentUser(null)
         navigate('/login')
         console.log('deslogado com sucesso');
       })
@@ -45,7 +45,7 @@ export const UserStorage = ({ children }) => {
         setError(error)
       });
   }
-
+  // Session Persistence
   useEffect(()=>{
     auth.onAuthStateChanged((user)=>{
       if(user){

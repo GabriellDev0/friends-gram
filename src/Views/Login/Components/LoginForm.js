@@ -1,14 +1,19 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
+// Styles
+import styles from './LoginForm.module.css';
+import stylesBtn from '../../../Components/Forms/Button.module.css'
+
 //Form Components
 import Input from '../../../Components/Forms/Input';
 import Button from '../../../Components/Forms/Button';
 import useForm from '../../../Hooks/useForm';
 
-//Firebase endPoints
-// import {loginFirebase} from '../../../Firebase/firebaseEndPoints'
+//Helper Component
+import Error from '../../../Components/Helper/Error';
 
+//Global User Context
 import UserContext from '../../../UserContext';
 
 const LoginForm = () => {
@@ -25,9 +30,9 @@ const LoginForm = () => {
   }
 
   return (
-    <section>
-      <h1>Login</h1>
-      <form onSubmit={handleLogin}>
+    <section className="animeLeft">
+      <h1 className="title">Login</h1>
+      <form className={styles.form} onSubmit={handleLogin}>
         <Input label="Email" type="text" name="email" {...email} />
         <Input label="Senha" type="password" name="password" {...password} />
         {loading ? (
@@ -35,9 +40,18 @@ const LoginForm = () => {
         ) : (
           <Button>Entrar</Button>
         )}
-        {error && <p>{error}</p>}
+        {error && <Error error={error}></Error>}
       </form>
-      <Link to="/login/criar">Cadastro</Link>
+      <Link className={styles.perdeu} to="/login/perdeu">
+        Perdeu a Senha?
+      </Link>
+      <div className={styles.cadastro}>
+        <h2 className={styles.subtitle}>Cadastre-se</h2>
+        <p>Ainda não possui conta? Cadastre-se no site.</p>
+        <Link className={stylesBtn.button} to="/login/criar">
+          Cadastro
+        </Link>
+      </div>
     </section>
   );
 };
