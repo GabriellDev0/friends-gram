@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 // Styles
 import styles from './LoginForm.module.css';
-import stylesBtn from '../../../Components/Forms/Button.module.css'
+import stylesBtn from '../../../Components/Forms/Button.module.css';
 
 //Form Components
 import Input from '../../../Components/Forms/Input';
@@ -14,11 +14,12 @@ import useForm from '../../../Hooks/useForm';
 import Error from '../../../Components/Helper/Error';
 import useFirebase from '../../../Hooks/useFirebase';
 
+
 const LoginForm = () => {
   const email = useForm('email');
   const password = useForm();
-  const { loginFirebase, error, loading } = useFirebase()
-  
+  const { loginFirebase, error, loading } = useFirebase();
+
   function handleLogin(event) {
     event.preventDefault();
     if (email.validate() && password.validate()) {

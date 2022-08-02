@@ -8,7 +8,8 @@ export const UserContext = React.createContext();
 export const UserStorage = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [emailVerified, setEmailVerified] = useState(false);
-
+  console.log(currentUser)
+  console.log(emailVerified)
   // Session Persistence and Watch Auth Changed
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -17,7 +18,7 @@ export const UserStorage = ({ children }) => {
         setEmailVerified(user.emailVerified);
       } else {
         setCurrentUser(user);
-        setEmailVerified(null)
+        setEmailVerified(false)
       }
     });
   }, []);

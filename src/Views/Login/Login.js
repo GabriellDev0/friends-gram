@@ -7,9 +7,9 @@ import LoginPasswordReset from './Components/LoginPasswordReset';
 import UserContext from '../../UserContext';
 import styles from './Login.module.css';
 const Login = () => {
-  const { currentUser } = React.useContext(UserContext);
+  const { currentUser, emailVerified } = React.useContext(UserContext);
 
-  if (currentUser) return <Navigate to="/conta" />;
+  if (emailVerified === true && currentUser !== null  ) return <Navigate to="/conta" />;
   return (
     <section className={styles.login}>
       <div className={styles.forms}>
