@@ -9,16 +9,11 @@ import { ReactComponent as Friends } from '../../Assets/friends-icon.svg';
 
 //Global User Context
 import UserContext from '../../UserContext';
-import useFirebase from '../../Hooks/useFirebase';
+
 
 const Header = () => {
   const { currentUser } = useContext(UserContext);
-  const { logOutFirebase } = useFirebase()
 
-  function logOut(){
-    logOutFirebase()
-  }
-  
   return (
     <header className={styles.header}>
       <nav className={`${styles.nav} container`}>
@@ -28,7 +23,6 @@ const Header = () => {
         {currentUser ? (
           <Link className={styles.login} to="/conta">
             {currentUser.displayName}
-            <button onClick={logOut}>Sair</button>
           </Link>
         ) : (
           <Link className={styles.login} to="/login">
