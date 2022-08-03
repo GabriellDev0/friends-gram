@@ -35,7 +35,7 @@ const useFirebase = () => {
         });
         setTimeout(() => {
           logOutFirebase()
-        }, 2000);      
+        }, 400);      
       })
       .catch((error) => {
         setError('Email já cadastrado.');
