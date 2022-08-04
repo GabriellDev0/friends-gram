@@ -27,9 +27,7 @@ export const UserStorage = ({ children }) => {
   }, []);
 
   if(loading){
-    console.log('Pegando dados da sessão...')
-    console.log('Email verificado: ',emailVerified)
-    return console.log('Usuário: ',currentUser)
+    return console.log('Pegando dados da sessão...')
   }
 
   return (
