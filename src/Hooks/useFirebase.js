@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { auth, db } from '../Firebase/Config';
+import { useState, useContext } from 'react';
+import { auth, db, storage } from '../Firebase/Config';
 import { useNavigate } from 'react-router-dom';
 // Create Account Auth Firebase
 import {
@@ -7,16 +7,27 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
   signOut,
-  sendEmailVerification
+  sendEmailVerification,
 } from 'firebase/auth';
 
-// Add Account in FireStore
-import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+// Add to FireStore
+import {
+  addDoc,
+  collection,
+  updateDoc,
+  doc,
+  serverTimestamp,
+} from 'firebase/firestore';
+
+// Add to Storage
+import { ref, getDownloadURL, uploadBytes } from 'firebase/storage';
+import UserContext from '../UserContext';
 
 const useFirebase = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(null);
   const navigate = useNavigate();
+  const { currentUser } = useContext(UserContext);
 
   const createUser = async (username, email, password) => {
     setLoading(true);
@@ -26,7 +37,7 @@ const useFirebase = () => {
         updateProfile(user, {
           displayName: username,
         });
-        sendEmailVerification(user)
+        sendEmailVerification(user);
         // Add User to FireStore database
         addDoc(collection(db, 'users'), {
           nameUser: username,
@@ -34,8 +45,8 @@ const useFirebase = () => {
           timeStamp: serverTimestamp(),
         });
         setTimeout(() => {
-          logOutFirebase()
-        }, 400);      
+          logOutFirebase();
+        }, 400);
       })
       .catch((error) => {
         setError('Email já cadastrado.');
@@ -54,15 +65,17 @@ const useFirebase = () => {
         const user = userCredential.user;
         console.log(user);
         setLoading(false);
-        if(user.emailVerified === true){
+        if (user.emailVerified === true) {
           navigate('/conta');
-        }else{
-          logOutFirebase()
-          setError('Confirme seu endereço de e-mail na sua caixa de entrada, olhe no Spam.')
+        } else {
+          logOutFirebase();
+          setError(
+            'Confirme seu endereço de e-mail na sua caixa de entrada, olhe no Spam.',
+          );
         }
         setTimeout(() => {
-            setError(null)
-        }, 5000);        
+          setError(null);
+        }, 5000);
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -72,6 +85,42 @@ const useFirebase = () => {
         setError('Usuário ou senha não foram encontrados.');
         setLoading(false);
       });
+  };
+
+  const addPostFirebase = async (
+    title,
+    description,
+    file,
+    nameUser = currentUser.displayName,
+    emailUser = currentUser.email,
+    views = 0,
+    comments = [],
+    imgURL = '',
+  ) => {
+    setLoading(true);
+    const docRef = await addDoc(collection(db, 'posts'), {
+      nameUser,
+      emailUser,
+      title,
+      description,
+      comments,
+      views,
+      imgURL,
+      serverTimestamp: serverTimestamp()
+    });
+    console.log('Novo documento adicionado with ID: ', docRef.id)
+
+    const imageRef = ref(storage, `posts/${file.name}`);
+
+    await uploadBytes(imageRef, file).then(async (snapshot)=>{
+        const downloadURL = await getDownloadURL(imageRef);
+        await updateDoc(doc(db,'posts', docRef.id),{
+          imgURL: downloadURL
+        })
+    })
+    setLoading(false);
+    console.log('Dados Enviados com Sucesso')
+
   };
 
   const logOutFirebase = async () => {
@@ -89,6 +138,7 @@ const useFirebase = () => {
   return {
     createUser,
     loginFirebase,
+    addPostFirebase,
     logOutFirebase,
     error,
     loading,

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import useFirebase from '../../Hooks/useFirebase';
-import { ReactComponent as Posts } from '../../Assets/feed.svg';
-import { ReactComponent as Estatistics } from '../../Assets/estatistics.svg';
-import { ReactComponent as Add } from '../../Assets/addPost.svg';
-import { ReactComponent as LogOut } from '../../Assets/logOut.svg';
-import useMedia from '../../Hooks/useMedia';
+import useFirebase from '../../../Hooks/useFirebase';
+import { ReactComponent as Posts } from '../../../Assets/feed.svg';
+import { ReactComponent as Estatistics } from '../../../Assets/estatistics.svg';
+import { ReactComponent as Add } from '../../../Assets/addPost.svg';
+import { ReactComponent as LogOut } from '../../../Assets/logOut.svg';
+import useMedia from '../../../Hooks/useMedia';
 import styles from './UserHeaderNav.module.css';
 const UhserHeaderNav = () => {
   const { logOutFirebase } = useFirebase();

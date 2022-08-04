@@ -9,7 +9,7 @@ export const UserStorage = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [emailVerified, setEmailVerified] = useState(false);
   const [loading, setLoading] = useState(true)
- 
+ console.log(currentUser)
 
   // Session Persistence and Watch Auth Changed
   useEffect(() => {
