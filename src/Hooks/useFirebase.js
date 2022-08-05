@@ -96,16 +96,18 @@ const useFirebase = () => {
     views = 0,
     comments = [],
     imgURL = '',
+    idUser = currentUser.uid
   ) => {
     setLoading(true);
     const docRef = await addDoc(collection(db, 'posts'), {
-      nameUser,
-      emailUser,
       title,
       description,
-      comments,
-      views,
       imgURL,
+      nameUser,
+      emailUser,
+      views,
+      comments,
+      idUser,
       serverTimestamp: serverTimestamp()
     });
     console.log('Novo documento adicionado with ID: ', docRef.id)
@@ -120,7 +122,7 @@ const useFirebase = () => {
     })
     setLoading(false);
     console.log('Dados Enviados com Sucesso')
-
+    navigate('/')
   };
 
   const logOutFirebase = async () => {

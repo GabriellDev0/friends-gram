@@ -7,12 +7,15 @@ import Button from '../../../Components/Forms/Button';
 import Error from '../../../Components/Helper/Error';
 import { useNavigate } from 'react-router-dom';
 const UserPhotoPost = () => {
+
   const title = useForm();
   const description = useForm();
   const [img, setImg] = useState({});
+
   const [imgError, setImgError] = useState(null);
+
   const { addPostFirebase, error, loading } = useFirebase();
-  const navigate = useNavigate()
+
 
   async function handlePost(e) {
     e.preventDefault();
@@ -21,7 +24,6 @@ const UserPhotoPost = () => {
 
     if (title.validate() && description.validate() && validateFile) {
       await addPostFirebase(title.value, description.value, img.raw);
-      navigate('./conta')
     } else {
       setImgError(
         'Apenas arquivos do tipo Imagem e abaixo de 2MB podem ser anexadas.',
