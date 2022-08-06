@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import FeedModal from './FeedModal'
-import FeedPhotos from './FeedPhotos'
+import FeedPosts from './FeedPosts'
 const Feed = () => {
+  const [modalPost, setModalPost] = useState(null)
+  
   return (
     <div>
-      <FeedModal/>
-      <FeedPhotos/>
+      {modalPost && <FeedModal post={modalPost}/>}
+      <FeedPosts setModalPost={setModalPost}/>
     </div>
   )
 }

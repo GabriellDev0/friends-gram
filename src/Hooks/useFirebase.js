@@ -13,6 +13,12 @@ import {
 // Add to FireStore
 import {
   addDoc,
+  getDoc,
+  onSnapshot,
+  orderBy,
+  query,
+  where,
+  limit,
   collection,
   updateDoc,
   doc,
@@ -24,6 +30,7 @@ import { ref, getDownloadURL, uploadBytes } from 'firebase/storage';
 import UserContext from '../UserContext';
 
 const useFirebase = () => {
+  const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(null);
   const navigate = useNavigate();
@@ -96,7 +103,7 @@ const useFirebase = () => {
     views = 0,
     comments = [],
     imgURL = '',
-    idUser = currentUser.uid
+    idUser = currentUser.uid,
   ) => {
     setLoading(true);
     const docRef = await addDoc(collection(db, 'posts'), {
@@ -108,21 +115,65 @@ const useFirebase = () => {
       views,
       comments,
       idUser,
-      serverTimestamp: serverTimestamp()
+      serverTimestamp: serverTimestamp(),
     });
-    console.log('Novo documento adicionado with ID: ', docRef.id)
+    console.log('Novo documento adicionado with ID: ', docRef.id);
 
     const imageRef = ref(storage, `posts/${file.name}`);
 
-    await uploadBytes(imageRef, file).then(async (snapshot)=>{
-        const downloadURL = await getDownloadURL(imageRef);
-        await updateDoc(doc(db,'posts', docRef.id),{
-          imgURL: downloadURL
-        })
-    })
+    await uploadBytes(imageRef, file).then(async (snapshot) => {
+      const downloadURL = await getDownloadURL(imageRef);
+      await updateDoc(doc(db, 'posts', docRef.id), {
+        imgURL: downloadURL,
+      });
+    });
     setLoading(false);
-    console.log('Dados Enviados com Sucesso')
-    navigate('/')
+    console.log('Dados Enviados com Sucesso');
+    navigate('/');
+  };
+
+  const getPostsFirebase = async (idUser = '') => {
+    setLoading(true);
+    const collectionRef = collection(db, 'posts');
+    const queryAll = query(
+      collectionRef,
+      orderBy('serverTimestamp', 'desc'),
+      limit(6),
+    );
+    const queryByIdUser = query(
+      collectionRef,
+      where('idUser', '==', idUser),
+      orderBy('serverTimestamp', 'desc'),
+      limit(6),
+    );
+    try {
+      setLoading(false);
+      onSnapshot(idUser === '' ? queryAll : queryByIdUser, (querySnapShot) => {
+        const data = [];
+        querySnapShot.forEach((doc) =>
+          data.push({ ...doc.data(), id: doc.id }),
+        );
+        setData(data);
+      });
+    } catch (error) {
+      setError('Ocorreu algum erro ao carregar os posts desta página.');
+      setLoading(false);
+    }
+  };
+
+  const getModalPost = async (idDoc) => {
+    setLoading(true);
+    const docRec = doc(db, 'posts', idDoc);
+    try {
+      const docSnap = await getDoc(docRec);
+      const data = []
+      data.push({...docSnap.data(), id: idDoc})
+      setData(data)
+      setLoading(false);
+    } catch (error) {
+      setError('Ocorreu algum erro ao carregar este Post.');
+      setLoading(false);
+    }
   };
 
   const logOutFirebase = async () => {
@@ -140,7 +191,10 @@ const useFirebase = () => {
   return {
     createUser,
     loginFirebase,
+    data,
     addPostFirebase,
+    getPostsFirebase,
+    getModalPost,
     logOutFirebase,
     error,
     loading,

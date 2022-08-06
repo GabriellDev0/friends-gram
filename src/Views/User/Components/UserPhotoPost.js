@@ -5,7 +5,6 @@ import useFirebase from '../../../Hooks/useFirebase';
 import Input from '../../../Components/Forms/Input';
 import Button from '../../../Components/Forms/Button';
 import Error from '../../../Components/Helper/Error';
-import { useNavigate } from 'react-router-dom';
 const UserPhotoPost = () => {
 
   const title = useForm();
@@ -15,7 +14,6 @@ const UserPhotoPost = () => {
   const [imgError, setImgError] = useState(null);
 
   const { addPostFirebase, error, loading } = useFirebase();
-
 
   async function handlePost(e) {
     e.preventDefault();
