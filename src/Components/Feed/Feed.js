@@ -1,15 +1,15 @@
-import React, { useState } from 'react'
-import FeedModal from './FeedModal'
-import FeedPosts from './FeedPosts'
+import React, { useState } from 'react';
+import FeedModal from './FeedModal';
+import FeedPosts from './FeedPosts';
 const Feed = () => {
-  const [modalPost, setModalPost] = useState(null)
-  
+  const [modalPost, setModalPost] = useState(null);
+
   return (
     <div>
-      {modalPost && <FeedModal post={modalPost}/>}
-      <FeedPosts setModalPost={setModalPost}/>
+      {modalPost && <FeedModal post={modalPost} setModalPost={setModalPost} />}
+      <FeedPosts setModalPost={setModalPost} />
     </div>
-  )
-}
+  );
+};
 
-export default Feed
+export default Feed;

@@ -23,6 +23,7 @@ import {
   updateDoc,
   doc,
   serverTimestamp,
+  arrayUnion,
 } from 'firebase/firestore';
 
 // Add to Storage
@@ -163,15 +164,29 @@ const useFirebase = () => {
 
   const getModalPost = async (idDoc) => {
     setLoading(true);
-    const docRec = doc(db, 'posts', idDoc);
+    const docRef = doc(db, 'posts', idDoc);
     try {
-      const docSnap = await getDoc(docRec);
-      const data = []
-      data.push({...docSnap.data(), id: idDoc})
-      setData(data)
+      const docSnap = await getDoc(docRef);
+      const data = [];
+      data.push({ ...docSnap.data(), id: idDoc });
+      setData(data);
       setLoading(false);
     } catch (error) {
       setError('Ocorreu algum erro ao carregar este Post.');
+      setLoading(false);
+    }
+  };
+
+  const commentPostFirebase = async (id, comment) => {
+    setLoading(true);
+    try {
+      const docRef = doc(db, 'posts', id);
+      await updateDoc(docRef, {
+        comments: arrayUnion(comment),
+      });
+      setLoading(false);
+    } catch (error) {
+      setError('Ocorreu algum erro ao postar o comentário')
       setLoading(false);
     }
   };
@@ -195,6 +210,7 @@ const useFirebase = () => {
     addPostFirebase,
     getPostsFirebase,
     getModalPost,
+    commentPostFirebase,
     logOutFirebase,
     error,
     loading,

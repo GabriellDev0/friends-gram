@@ -89,7 +89,7 @@
   border-radius: 0.2rem;
   transform: translate3d(-10px, 0px, 0px);
   opacity: 0;
-  pointer-events: none;
+  /* pointer-events: none; */
 }
 
 .navMobileActive{

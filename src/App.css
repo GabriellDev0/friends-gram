@@ -53,6 +53,7 @@ a{
 
 .title{
   font-family: var(--type-second);
+  word-wrap: break-word;
   line-height: 1;
   font-size: 3rem;
   margin: 1rem;
@@ -60,9 +61,9 @@ a{
   z-index: 1;
 }
 
-.title::after{
+.title::before{
   content: '';
-  display: block;
+  display: inline-block;
   width: 1.5rem;
   height: 1.5rem;
   background-color: #fb1;
@@ -72,6 +73,7 @@ a{
   border-radius: 0.2rem;
   z-index: -1;
 }
+
 
 .animeLeft{
   opacity: 0;
