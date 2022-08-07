@@ -4,12 +4,14 @@ import Loading from '../Helper/Loading';
 import FeedPostsItem from './FeedPostsItem';
 import styles from './FeedPosts.module.css';
 import useFirebase from '../../Hooks/useFirebase';
-const FeedPosts = ({ setModalPost }) => {
-  const { getPostsFirebase, data, error, loading } = useFirebase();
-  
+import Button from '../Forms/Button';
+const FeedPosts = ({ setModalPost, user }) => {
+  const { getPostsFirebase, infiniteScroll, data, error, loading, lastVisible } =
+    useFirebase();
+
   useEffect(() => {
     async function getPosts() {
-      await getPostsFirebase()
+      await getPostsFirebase(user);
     }
     getPosts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -19,15 +21,24 @@ const FeedPosts = ({ setModalPost }) => {
   if (loading) return <Loading />;
   if (data) {
     return (
-      <ul className={`${styles.feed} animeLeft`}>
-        {data.map((post) => (
-          <FeedPostsItem
-            key={post.id}
-            post={post}
-            setModalPost={setModalPost}
-          />
-        ))}
-      </ul>
+      <>
+        <ul className={`${styles.feed} animeLeft`}>
+          {data.map((post) => (
+            <FeedPostsItem
+              key={post.id}
+              post={post}
+              setModalPost={setModalPost}
+            />
+          ))}
+        </ul>
+        <div class={styles.morePosts}>
+        {lastVisible ? (
+          <Button onClick={infiniteScroll}>Carregar mais..</Button>
+        ) : (
+            <h3>Não há mais posts para serem carregados.</h3>
+        )}
+        </div>     
+      </>
     );
   } else return null;
 };

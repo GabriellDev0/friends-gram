@@ -6,6 +6,13 @@
     justify-items: center;
 }
 
+.morePosts{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 30px;
+}
+
 @media (max-width: 640px){
   .feed{
     grid-template-columns: repeat(2,1fr);

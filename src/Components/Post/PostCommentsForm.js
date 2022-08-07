@@ -6,7 +6,6 @@ import Error from '../../Components/Helper/Error'
 const PostCommentsForm = ({ id, user, setComments }) => {
   const [comment, setComment] = useState('');
   const { commentPostFirebase, error }= useFirebase()
-  console.log(comment)
 
  async function handleSubmit(e){
     e.preventDefault()

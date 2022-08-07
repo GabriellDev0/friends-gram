@@ -24,7 +24,9 @@ import {
   doc,
   serverTimestamp,
   arrayUnion,
-  deleteDoc
+  deleteDoc,
+  startAfter,
+  getDocs,
 } from 'firebase/firestore';
 
 // Add to Storage
@@ -35,6 +37,7 @@ const useFirebase = () => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(null);
+  const [lastVisible, setLastVisible] = useState(null);
   const navigate = useNavigate();
   const { currentUser } = useContext(UserContext);
 
@@ -140,28 +143,50 @@ const useFirebase = () => {
     const queryAll = query(
       collectionRef,
       orderBy('serverTimestamp', 'desc'),
-      limit(6),
+      limit(3),
     );
     const queryByIdUser = query(
       collectionRef,
       where('idUser', '==', idUser),
       orderBy('serverTimestamp', 'desc'),
-      limit(6),
+      limit(3),
     );
+
     try {
-      setLoading(false);
       onSnapshot(idUser === '' ? queryAll : queryByIdUser, (querySnapShot) => {
         const data = [];
+        setLastVisible(querySnapShot.docs[querySnapShot.docs.length - 1]);
         querySnapShot.forEach((doc) =>
           data.push({ ...doc.data(), id: doc.id }),
         );
         setData(data);
+        setLoading(false);
       });
     } catch (error) {
       setError('Ocorreu algum erro ao carregar os posts desta página.');
       setLoading(false);
     }
   };
+
+  async function infiniteScroll() {
+    if (lastVisible !== undefined) {
+      setLoading(true);
+      const collectionRef = collection(db, 'posts');
+      const next = query(
+        collectionRef,
+        orderBy('serverTimestamp', 'desc'),
+        startAfter(lastVisible),
+        limit(1),
+        );
+      const documentSnapshots = await getDocs(next);
+
+      documentSnapshots.forEach((doc) => {
+        setData((data) => [...data, { ...doc.data(), id: doc.id }]);
+      });
+      setLoading(false);
+      setLastVisible(documentSnapshots.docs[documentSnapshots.docs.length - 1]);
+    }
+  }
 
   const getModalPost = async (idDoc) => {
     setLoading(true);
@@ -187,22 +212,24 @@ const useFirebase = () => {
       });
       setLoading(false);
     } catch (error) {
-      setError('Ocorreu algum erro ao postar o comentário')
+      setError('Ocorreu algum erro ao postar o comentário');
       setLoading(false);
     }
   };
 
-  const postDeleteFirebase = async (id) =>{
-    setLoading(true)
-      const docRef = doc(db, "posts", id)
-      await deleteDoc(docRef).then(()=>{
-          // Deletado com sucesso
-          setLoading(false)
-      }).catch((error)=>{
-         // Error
-         setLoading(false)
+  const postDeleteFirebase = async (id) => {
+    setLoading(true);
+    const docRef = doc(db, 'posts', id);
+    await deleteDoc(docRef)
+      .then(() => {
+        // Deletado com sucesso
+        setLoading(false);
       })
-  }
+      .catch((error) => {
+        // Error
+        setLoading(false);
+      });
+  };
 
   const logOutFirebase = async () => {
     signOut(auth)
@@ -222,6 +249,8 @@ const useFirebase = () => {
     data,
     addPostFirebase,
     getPostsFirebase,
+    infiniteScroll,
+    lastVisible,
     getModalPost,
     commentPostFirebase,
     postDeleteFirebase,
