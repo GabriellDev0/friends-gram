@@ -18,9 +18,12 @@
 }
 
 .post img{
-  grid-area: 1/1;
   height: 300px;
   width: 500px;
+}
+
+.post > div{
+  grid-area: 1/1;
 }
 
 .views{

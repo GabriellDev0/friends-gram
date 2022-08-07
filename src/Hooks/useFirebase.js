@@ -24,6 +24,7 @@ import {
   doc,
   serverTimestamp,
   arrayUnion,
+  deleteDoc
 } from 'firebase/firestore';
 
 // Add to Storage
@@ -191,6 +192,18 @@ const useFirebase = () => {
     }
   };
 
+  const postDeleteFirebase = async (id) =>{
+    setLoading(true)
+      const docRef = doc(db, "posts", id)
+      await deleteDoc(docRef).then(()=>{
+          // Deletado com sucesso
+          setLoading(false)
+      }).catch((error)=>{
+         // Error
+         setLoading(false)
+      })
+  }
+
   const logOutFirebase = async () => {
     signOut(auth)
       .then(() => {
@@ -211,6 +224,7 @@ const useFirebase = () => {
     getPostsFirebase,
     getModalPost,
     commentPostFirebase,
+    postDeleteFirebase,
     logOutFirebase,
     error,
     loading,

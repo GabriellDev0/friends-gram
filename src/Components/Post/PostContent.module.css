@@ -4,7 +4,7 @@
   border-radius: 0.2rem;
   background: white;
   display: grid;
-  grid-template-columns: auto minmax(auto, 600px);
+  grid-template-columns: 576px minmax(auto, 600px);
   grid-template-rows: auto 1fr auto;
   overflow: hidden;
   opacity: 0;
@@ -35,15 +35,18 @@ img{
   padding: 0 2rem;
 }
 
-@media(max-width: 900px){
+@media(max-width: 1100px){
     .post{
       height: auto;
-      max-height: calc(100vh - 4rem);
+      max-height: calc(100vh - 12rem);
       overflow-y: auto;
       grid-template-columns: minmax(20rem, 40rem);
     }
     .img{
       grid-row: 1;
+    }
+    img{
+      height: 300px;
     }
 }
 
@@ -59,7 +62,7 @@ img{
   text-decoration: underline;
 }
 
-.views{
+.views::before{
   content: '';
   display: inline-block;
   width: 16px;
@@ -69,9 +72,41 @@ img{
 }
 
 .description{
-  padding: 0 2rem;
+  padding: 0 1rem;
   color:sienna;
   max-width: 100%;
   word-break: break-all;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+}
+
+.titlePost{
+  font-family: var(--type-second);
+  word-wrap: break-word;
+  line-height: 1;
+  font-size: 3rem;
+  margin: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.titlePost::before{
+  content: '';
+  display: inline-block;
+  width: 1.5rem;
+  height: 1.5rem;
+  background-color: #fb1;
+  position: absolute;
+  bottom: 5px;
+  left: -5px;
+  border-radius: 0.2rem;
+  z-index: -1;
+}
+
+
+
+@media(max-width: 1100px){
+   .titlePost{
+      font-size: 2rem;
+   }
 }
