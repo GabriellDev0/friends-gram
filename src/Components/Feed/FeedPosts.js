@@ -1,24 +1,56 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Error from '../Helper/Error';
 import Loading from '../Helper/Loading';
 import FeedPostsItem from './FeedPostsItem';
 import styles from './FeedPosts.module.css';
 import useFirebase from '../../Hooks/useFirebase';
-import Button from '../Forms/Button';
-const FeedPosts = ({ setModalPost, user }) => {
-  const { getPostsFirebase, infiniteScroll, data, error, loading, lastVisible } =
-    useFirebase();
+
+const FeedPosts = ({ setModalPost, userUid }) => {
+  const {
+    getPostsFirebase,
+    infiniteScroll,
+    data,
+    error,
+    loading,
+    lastVisible,
+  } = useFirebase();
 
   useEffect(() => {
     async function getPosts() {
-      await getPostsFirebase(user);
+      await getPostsFirebase(userUid);
     }
     getPosts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    let wait = false;
+    function loadMore() {
+      if (lastVisible) {
+        const scroll = window.scrollY;
+        const height = document.body.offsetHeight - window.innerHeight;
+        console.log('ScrollY: ', scroll)
+        console.log('ScrollHeigh: ', height)
+        if (scroll > height * 0.75 && !wait) {
+          infiniteScroll(userUid);
+          wait = true;
+          document.body.scrollTo({bottom: 300, behavior: 'smooth'})
+          setTimeout(() => {
+            wait = false;
+          }, 1000);
+        }
+      }
+    }
+    window.addEventListener('wheel', loadMore);
+    window.addEventListener('scroll', loadMore);
+    return () => {
+      window.removeEventListener('wheel', loadMore);
+      window.removeEventListener('scroll', loadMore);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lastVisible]);
+
   if (error) return <Error error={error} />;
-  if (loading) return <Loading />;
   if (data) {
     return (
       <>
@@ -31,13 +63,10 @@ const FeedPosts = ({ setModalPost, user }) => {
             />
           ))}
         </ul>
-        <div class={styles.morePosts}>
-        {lastVisible ? (
-          <Button onClick={infiniteScroll}>Carregar mais..</Button>
-        ) : (
-            <h3>Não há mais posts para serem carregados.</h3>
-        )}
-        </div>     
+        <div className={styles.morePosts}>
+          {loading && <Loading/>}
+          {!lastVisible && <h3>Não há mais posts para serem carregados.</h3>}
+        </div>
       </>
     );
   } else return null;

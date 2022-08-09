@@ -24,7 +24,7 @@ const Loading = () => {
   }
 
   return (
-    <div className={styles.wrapper}>
+    <div className={`${styles.wrapper} top:${window.scrollY}`}>
       <div className={styles.loading}>
         <svg
           width="46"

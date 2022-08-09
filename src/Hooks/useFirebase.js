@@ -168,7 +168,7 @@ const useFirebase = () => {
     }
   };
 
-  async function infiniteScroll() {
+  async function infiniteScroll(idUser = '') {
     if (lastVisible !== undefined) {
       setLoading(true);
       const collectionRef = collection(db, 'posts');
@@ -176,9 +176,17 @@ const useFirebase = () => {
         collectionRef,
         orderBy('serverTimestamp', 'desc'),
         startAfter(lastVisible),
-        limit(1),
+        limit(3),
         );
-      const documentSnapshots = await getDocs(next);
+        const next2 = query(
+          collectionRef,
+          where('idUser', '==', idUser),
+          orderBy('serverTimestamp', 'desc'),
+          startAfter(lastVisible),
+          limit(3),
+        );
+
+      const documentSnapshots = await getDocs(idUser === '' ? next : next2);
 
       documentSnapshots.forEach((doc) => {
         setData((data) => [...data, { ...doc.data(), id: doc.id }]);
