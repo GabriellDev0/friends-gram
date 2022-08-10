@@ -5,13 +5,12 @@ import PostComments from './PostComments';
 import UserContext from '../../UserContext';
 import PostDelete from './PostDelete';
 import Image from '../Helper/Image';
-const PostContent = ({ data }) => {
+const PostContent = ({ data, single }) => {
   const { currentUser } = useContext(UserContext);
   const { imgURL, comments, title, id, nameUser, views, description, idUser } =
     data[0];
-  console.log(currentUser);
   return (
-    <div className={styles.post}>
+    <div className={`${styles.post} ${ single ? styles.singlePost : ''}`}>
       <div className={styles.img}>
         <Image src={imgURL} alt={title} width="576px" height="576px"/>
       </div>
@@ -21,17 +20,17 @@ const PostContent = ({ data }) => {
             {currentUser && currentUser.uid === idUser ? (
               <PostDelete id={id} />
             ) : (
-              <Link to={`/perfil/${nameUser}-${id}`}>@{nameUser}</Link>
+              <Link to={`/perfil/${nameUser}/${idUser}`}>@{nameUser}</Link>
             )}
             <span className={styles.views}>{views}</span>
           </p>
           <h1 className={styles.titlePost}>
-            <Link to={`/foto/${title}-${id}`}>{title}</Link>
+            <Link to={`/post/${id}`}>{title}</Link>
           </h1>
         </div>
         <h3 className={styles.description}>{description}</h3>
       </div>
-      <PostComments id={id} comments={comments} />
+      <PostComments id={id} single={single} comments={comments} />
     </div>
   );
 };

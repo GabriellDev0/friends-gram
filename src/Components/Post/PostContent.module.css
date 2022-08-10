@@ -10,6 +10,12 @@
   opacity: 0;
   transform: scale(.8);
   animation: scaleUp .3s forwards;
+  justify-content: center;
+}
+
+.singlePost.post{
+  grid-template-columns: 576px;
+  height: auto;
 }
 
 @keyframes scaleUp{
@@ -23,16 +29,23 @@
   padding: 2rem 2rem 0 2rem;
 }
 
+.singlePost .details{
+  padding: 1rem 0px 0px 0px;
+}
+
 .img{
   grid-row: 1/4;
 }
+
+.singlePost .img{
+  grid-row: 1;
+  border-radius: 0.4rem;
+}
+
+
 img{
   height: 576px;
   width: 576px;
-}
-
-.comments{
-  padding: 0 2rem;
 }
 
 @media(max-width: 1100px){
@@ -41,6 +54,11 @@ img{
       max-height: calc(100vh - 12rem);
       overflow-y: auto;
       grid-template-columns: minmax(20rem, 40rem);
+    }
+    .singlePost.post{
+      max-height: 1000px !important;
+      max-width: 1000px !important;
+      grid-template-columns: minmax(200px, 576px);
     }
     .img{
       grid-row: 1;

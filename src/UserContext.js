@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Loading from './Components/Helper/Loading';
 
 //Firebase Configs
 import { auth } from './Firebase/Config';
@@ -9,10 +10,11 @@ export const UserStorage = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [emailVerified, setEmailVerified] = useState(false);
   const [loading, setLoading] = useState(true)
- console.log(currentUser)
 
+  console.log(currentUser)
   // Session Persistence and Watch Auth Changed
   useEffect(() => {
+    
     auth.onAuthStateChanged((user) => {
       if (user) {
         setCurrentUser(user);
@@ -27,7 +29,7 @@ export const UserStorage = ({ children }) => {
   }, []);
 
   if(loading){
-    return console.log('Pegando dados da sessão...')
+    return <Loading/>
   }
 
   return (

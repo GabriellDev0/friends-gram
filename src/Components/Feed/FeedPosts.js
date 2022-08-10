@@ -29,8 +29,6 @@ const FeedPosts = ({ setModalPost, userUid }) => {
       if (lastVisible) {
         const scroll = window.scrollY;
         const height = document.body.offsetHeight - window.innerHeight;
-        console.log('ScrollY: ', scroll)
-        console.log('ScrollHeigh: ', height)
         if (scroll > height * 0.75 && !wait) {
           infiniteScroll(userUid);
           wait = true;

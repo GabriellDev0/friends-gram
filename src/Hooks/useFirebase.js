@@ -48,14 +48,15 @@ const useFirebase = () => {
         const user = userCredential.user;
         updateProfile(user, {
           displayName: username,
-        });
-        sendEmailVerification(user);
-        // Add User to FireStore database
-        addDoc(collection(db, 'users'), {
-          nameUser: username,
-          emailUser: email,
-          timeStamp: serverTimestamp(),
-        });
+        }).then(()=>{
+          sendEmailVerification(user);
+          addDoc(collection(db, 'users'), {
+            nameUser: username,
+            emailUser: email,
+            timeStamp: serverTimestamp(),
+          });
+        })
+        // Add User to FireStore database 
         setTimeout(() => {
           logOutFirebase();
         }, 400);

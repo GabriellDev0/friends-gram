@@ -4,6 +4,7 @@ import LoginForm from './Components/LoginForm';
 import LoginCreate from './Components/LoginCreate';
 import LoginPasswordLost from './Components/LoginPasswordLost';
 import LoginPasswordReset from './Components/LoginPasswordReset';
+import NotFound from '../../NotFound';
 import UserContext from '../../UserContext';
 import styles from './Login.module.css';
 const Login = () => {
@@ -18,6 +19,7 @@ const Login = () => {
           <Route path="criar" element={<LoginCreate />} />
           <Route path="perdeu" element={<LoginPasswordLost />} />
           <Route path="resetar" element={<LoginPasswordReset />} />
+          <Route path="*" element={<NotFound/>} />
         </Routes>
       </div>
     </section>
