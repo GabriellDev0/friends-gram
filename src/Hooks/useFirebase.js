@@ -8,6 +8,7 @@ import {
   updateProfile,
   signOut,
   sendEmailVerification,
+  sendPasswordResetEmail,
 } from 'firebase/auth';
 
 // Add to FireStore
@@ -27,6 +28,7 @@ import {
   deleteDoc,
   startAfter,
   getDocs,
+  increment,
 } from 'firebase/firestore';
 
 // Add to Storage
@@ -100,6 +102,18 @@ const useFirebase = () => {
       });
   };
 
+  const lostPasswordFirebase = async (email) =>{
+    setLoading(true)
+    sendPasswordResetEmail(auth, email).then(()=>{
+        setData('Email de redefinição de senha enviado com sucesso.')
+        setLoading(false)
+    })
+    .catch((error) =>{
+          setError('Ocorreu um erro ao enviar o e-mail de redefinição de senha.')
+          setLoading(false)
+    }) 
+  }
+
   const addPostFirebase = async (
     title,
     description,
@@ -138,19 +152,19 @@ const useFirebase = () => {
     navigate('/');
   };
 
-  const getPostsFirebase = async (idUser = '') => {
+  const getPostsFirebase = async (idUser = '', limite = 3) => {
     setLoading(true);
     const collectionRef = collection(db, 'posts');
     const queryAll = query(
       collectionRef,
       orderBy('serverTimestamp', 'desc'),
-      limit(3),
+      limit(limite),
     );
     const queryByIdUser = query(
       collectionRef,
       where('idUser', '==', idUser),
       orderBy('serverTimestamp', 'desc'),
-      limit(3),
+      limit(limite),
     );
 
     try {
@@ -212,6 +226,13 @@ const useFirebase = () => {
     }
   };
 
+  const setViewPost = async (idDoc) =>{
+    const docRef = doc(db, 'posts', idDoc)
+    await updateDoc(docRef, {
+        views: increment(1)
+    });
+  }
+
   const commentPostFirebase = async (id, comment) => {
     setLoading(true);
     try {
@@ -255,12 +276,14 @@ const useFirebase = () => {
   return {
     createUser,
     loginFirebase,
+    lostPasswordFirebase,
     data,
     addPostFirebase,
     getPostsFirebase,
     infiniteScroll,
     lastVisible,
     getModalPost,
+    setViewPost,
     commentPostFirebase,
     postDeleteFirebase,
     logOutFirebase,

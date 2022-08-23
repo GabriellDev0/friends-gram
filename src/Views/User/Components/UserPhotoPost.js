@@ -5,6 +5,7 @@ import useFirebase from '../../../Hooks/useFirebase';
 import Input from '../../../Components/Forms/Input';
 import Button from '../../../Components/Forms/Button';
 import Error from '../../../Components/Helper/Error';
+import Head from '../../../Components/Helper/Head';
 const UserPhotoPost = () => {
 
   const title = useForm();
@@ -31,6 +32,7 @@ const UserPhotoPost = () => {
 
   return (
     <section className={`${styles.photoPost} animeLeft`}>
+      <Head title="Poste sua foto" description="Local para o usuário fazer seu Post."/>
       <form id="formPost" onSubmit={handlePost}>
         <Input label="Titulo" type="text" name="titulo" {...title} />
         <Input

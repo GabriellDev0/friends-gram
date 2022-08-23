@@ -13,6 +13,7 @@ import useForm from '../../../Hooks/useForm';
 //Helper Component
 import Error from '../../../Components/Helper/Error';
 import useFirebase from '../../../Hooks/useFirebase';
+import Head from '../../../Components/Helper/Head';
 
 
 const LoginForm = () => {
@@ -29,6 +30,7 @@ const LoginForm = () => {
 
   return (
     <section className="animeLeft">
+      <Head title="Login" description="Aqui você irá entrar na sua conta."/>
       <h1 className="title">Login</h1>
       <form className={styles.form} onSubmit={handleLogin}>
         <Input label="Email" type="text" name="email" {...email} />

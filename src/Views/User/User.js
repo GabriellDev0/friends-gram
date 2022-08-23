@@ -6,10 +6,12 @@ import UserPhotoPost from './Components/UserPhotoPost'
 import UserStats from './UserStats'
 import UserContext from '../../UserContext'
 import NotFound from '../../NotFound'
+import Head from '../../Components/Helper/Head'
 const User = () => {
   const { currentUser } = useContext(UserContext)
   return (
     <section className='container'>
+      <Head title="Minha Conta" description="Todas as suas postagens."/>
         <UserHeader/>
         <Routes>
             <Route path='/' element={<Feed userUid={currentUser.uid}/>}/>

@@ -4,6 +4,7 @@ import Input from '../../../Components/Forms/Input';
 import useForm from '../../../Hooks/useForm';
 import Error from '../../../Components/Helper/Error';
 import useFirebase from '../../../Hooks/useFirebase';
+import Head from '../../../Components/Helper/Head';
 
 
 const LoginCreate = () => {
@@ -21,6 +22,7 @@ const LoginCreate = () => {
 
   return (
     <section className="animeLeft">
+      <Head title="Crie sua conta" description="Onde a pessoa irá criar sua primeira conta"/>
       <h1 className="title">Cadastre-se</h1>
       <form onSubmit={handleCreateUser}>
         <Input label="Usuário" type="text" name="username" {...username} />

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import useFirebase from '../../Hooks/useFirebase';
 import Error from '../Helper/Error';
+import Head from '../Helper/Head';
 import Loading from '../Helper/Loading';
 import PostContent from './PostContent';
 const Post = () => {
@@ -21,6 +22,7 @@ const Post = () => {
   if (data) {
     return (
       <section className="container mainContainer">
+        <Head title={data[0].title}/>
         <PostContent data={data} single={true} />
       </section>
     );
