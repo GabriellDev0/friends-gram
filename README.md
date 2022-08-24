@@ -65,18 +65,14 @@ Não esqueça de deixar sua foto por lá e aquela engajada nas publicações �
         <li>Por fim clique OK</li>
         <li>Abra o terminal em "Terminal" -> "New Terminal" e execute o comando **npm install**</li>
         <li>Configure as variáveis de Ambiente criando um arquivo .env na pasta principal do projeto.**</li>
-         Configurações das Variáveis de ambiente do seu projeto no Firebase:
-         <ul>
-           
-           <li>REACT_APP_FIREBASE_API_KEY=""
-              REACT_APP_FIREBASE_AUTH_DOMAIN=""
-              REACT_APP_FIREBASE_PROJECT_ID=""
-              REACT_APP_FIREBASE_STORAGE_BUCKET=""
-              REACT_APP_FIREBASE_MESSAGING_SENDER_ID=""
-              REACT_APP_FIREBASE_APP_ID=""
-            </li>
-         </ul>
-	      <li>Inicie o servidor local com: **npm run start**</li>
+	<h4>Configurações das Variáveis de ambiente do seu projeto no Firebase:</h4>
+        <li>REACT_APP_FIREBASE_API_KEY=""</li>
+        <li>REACT_APP_FIREBASE_AUTH_DOMAIN=""</li>
+        <li>REACT_APP_FIREBASE_PROJECT_ID=""</li>
+        <li>REACT_APP_FIREBASE_STORAGE_BUCKET=""</li>
+        <li>REACT_APP_FIREBASE_MESSAGING_SENDER_ID=""</li>
+        <li>REACT_APP_FIREBASE_APP_ID=""</li>
+	<li>Inicie o servidor local com: **npm run start**</li>
     </ul>
     
 ## 👨‍💻 Tecnologias Utilizadas
