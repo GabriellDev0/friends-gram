@@ -1,70 +1,112 @@
-# Getting Started with Create React App
+## Título
+<h1 align="center"> Friendsgram - Rede social para mais que amigos, friends. </h1>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Índice 
 
-In the project directory, you can run:
+* [Título](#Título)
+* [Índice](#índice)
+* [Descrição do Projeto](#descrição-do-projeto)
+* [Status do Projeto](#status-do-Projeto)
+* [Funcionalidades e Demonstração da Aplicação](#funcionalidades-e-demonstração-da-aplicação)
+* [Estrutura GitHub](#estrutura-github)
+* [Acesso ao Projeto](#acesso-ao-projeto)
+* [Tecnologias utilizadas](#tecnologias-utilizadas)
+* [Conclusão](#conclusão)
 
-### `npm start`
+## Descricao do Projeto
+Esse é um projeto onde eu criei uma rede social para amigos, Friendsgram. Crie sua conta, poste suas fotos e compartilhe com seus amigos 😆.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+![Friendsgram](https://user-images.githubusercontent.com/101679780/186305974-54ad9fd1-48e4-4541-92ca-24c9f6d05346.png)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+## Status do Projeto
+<h4 align="center"> 
+    ✔️Projeto Concluído v1.0 ✔️
+</h4>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## :hammer: Funcionalidades do projeto e Demonstração da Aplicação
 
-### `npm run build`
+- **`Funcionalidade 1`: Criação e Autênticação de contas com e-mail e senha.**
+- **`Funcionalidade 1a`: Confirmação de e-mail para conseguir usar a conta.**
+- **`Funcionalidade 1b`: Recuperação de senha via e-mail.**
+- **`Funcionalidade 2`: Adicionar publicações de suas fotos ao site**
+- **`Funcionalidade 2a`: Interagir/Comentar nas publicações**
+- **`Funcionalidade 2b`: Estatísticas sobre as suas publicações**
+- **`Funcionalidade 3`: Postagem de todos os usuários da rede social via Infinite Scroll 😲**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Resumidamente essas são as funcionalidades, mas para você realmente ter uma experiência mais elegante, por favor, visite meu projeto aqui, ele está online👀
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+https://friendsgram-b3fbd.firebaseapp.com/
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Não esqueça de deixar sua foto por lá e aquela engajada nas publicações 😎
+	
+	
+## 🌝 Estrutura Github
+**A estrutura do projeto no GitHub funciona básicamente assim:
+	<ul>
+		<li>1 - Nesse projeto deixei apenas a branch Main.</li>
+		<li>2 - Quando eu dou push para o github através da branch MAIN, acontece um GATILHO no GITHUB ACTIONS.</li>
+		<li>3 - GitHub Actions roda um código onde ele faz deploy automaticamente para o FireBase</li>
+	</ul>
+		Obs: Ou seja, consigo fazer deploy da aplicação de qualquer lugar :moon:**
+	
 
-### `npm run eject`
+## 📁 Acesso ao projeto
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+**Você pode acessar o código fonte do projeto clicando aqui <a>https://github.com/GabriellDev0/friends-gram</a> ou baixa-lo <a>https://github.com/GabriellDev0/friends-gram/archive/refs/heads/main.zip</a>**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 🛠️ Abrir e rodar o projeto
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+**Após baixar o projeto, você pode abrir com o Visual Studio Code. Para isso, na tela de launcher clique em:**
+    <ul>
+        <li>Abrir projeto existente ( ou algum similar )</li>
+        <li>Procure o local onde o projeto está e o selecione ( Caso o projeto seja baixado via zip, é necessário extraí-lo antes de procurá-lo )</li>
+        <li>Por fim clique OK</li>
+        <li>Abra o terminal em "Terminal" -> "New Terminal" e execute o comando **npm install**</li>
+        <li>Configure as variáveis de Ambiente criando um arquivo .env na pasta principal do projeto.**</li>
+         Configurações das Variáveis de ambiente do seu projeto no Firebase:
+         <ul>
+           
+           <li>REACT_APP_FIREBASE_API_KEY=""
+              REACT_APP_FIREBASE_AUTH_DOMAIN=""
+              REACT_APP_FIREBASE_PROJECT_ID=""
+              REACT_APP_FIREBASE_STORAGE_BUCKET=""
+              REACT_APP_FIREBASE_MESSAGING_SENDER_ID=""
+              REACT_APP_FIREBASE_APP_ID=""
+            </li>
+         </ul>
+	      <li>Inicie o servidor local com: **npm run start**</li>
+    </ul>
+    
+## 👨‍💻 Tecnologias Utilizadas
+**Tecnologias nas quais usei:**
+   	<ul>
+		<li>React JS ( HTML, CSS, JS )</li>
+		<li>Firebase: FireStore</li>
+		<li>Firebase: Hosting</li>
+		<li>Firebase: Auth</li>
+    <li>Firebase: Storage</li>
+	</ul>
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 📚 Bibliotecas Utilizadas
+**Bibliotecas nas quais usei:**
+	<ul>
+		<li> npm install react-router-dom@6 </li>
+		<a>https://reactrouter.com/</a>
+	</ul>
+	<ul>
+		<li> npm install victory </li>
+		<a>https://www.npmjs.com/package/victory</a>
+	</ul>
+	<ul>
+		<li> npm install firebase </li>
+		<a>https://firebase.google.com/?hl=pt</a>
+	</ul>
+	<ul>
+		<li>npm install history</li>
+		<a>https://www.npmjs.com/package/history</a>
+	</ul>
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## ㊗️ Conclusão
+   **Realmente um projeto bastante desafiador, sinto que aprendi bastante coisa fazendo ele, está apenas na versão 1 e tem muita coisa a ser melhorada, bastante features que eu quero implementar, sinto que após ter concluido esse projeto, eu consigo refazer ele escrevendo um código melhor, e é tão bom sentir isso, sinto que a cada projeto que faço eu evoluo cada vez mais. Vejo vocês nos próximos projetos 🤓**
